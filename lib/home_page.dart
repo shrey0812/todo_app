@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
+  String filterType = 'today';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +55,9 @@ class _homePageState extends State<homePage> {
                   children: [
                     Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          changeFilter('today');
+                        },
                         child: const Text(
                           'Today',
                           style: TextStyle(color: Colors.white, fontSize: 18),
@@ -62,11 +66,19 @@ class _homePageState extends State<homePage> {
                       const SizedBox(
                         height: 10,
                       ),
-                      Container(height: 4, width: 120, color: Colors.white)
+                      Container(
+                        height: 4,
+                        width: 120,
+                        color: (filterType == 'today')
+                            ? Colors.white
+                            : Colors.transparent,
+                      )
                     ]),
                     Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          changeFilter('monthly');
+                        },
                         child: const Text(
                           'Monthly',
                           style: TextStyle(color: Colors.white, fontSize: 18),
@@ -75,15 +87,35 @@ class _homePageState extends State<homePage> {
                       const SizedBox(
                         height: 10,
                       ),
-                      Container(height: 4, width: 120, color: Colors.white)
+                      Container(
+                        height: 4,
+                        width: 120,
+                        color: (filterType == 'monthly')
+                            ? Colors.white
+                            : Colors.transparent,
+                      )
                     ])
                   ],
                 ),
-              )
+              ),
+              (filterType == 'monthly')
+                  ? TableCalendar(
+                      firstDay: DateTime.utc(2010, 10, 16),
+                      lastDay: DateTime.utc(2030, 10, 16),
+                      focusedDay: DateTime.now(),
+                      startingDayOfWeek: StartingDayOfWeek.monday,
+                      calendarFormat: CalendarFormat.week,
+                    )
+                  : Container()
             ],
           )
         ],
       ),
     );
+  }
+
+  changeFilter(String filter) {
+    filterType = filter;
+    setState(() {});
   }
 }
