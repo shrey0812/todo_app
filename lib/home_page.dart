@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,6 +23,21 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> {
   String filterType = 'today';
+  DateTime today = DateTime.now();
+  var monthNames = [
+    'JAN',
+    'FEB',
+    'MAR',
+    'APR',
+    'MAY',
+    'JUN',
+    'JUL',
+    'AUG',
+    'SEPT',
+    'OCT',
+    'NOV',
+    'DEC'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +122,36 @@ class _homePageState extends State<homePage> {
                       startingDayOfWeek: StartingDayOfWeek.monday,
                       calendarFormat: CalendarFormat.week,
                     )
-                  : Container()
+                  : Container(),
+              Expanded(
+                child: SingleChildScrollView(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Today ${monthNames[today.month - 1]}, ${today.day}/${today.year}',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: Colors.grey,
+                              ),
+                            )
+                          ],
+                        )),
+                    taskWidget(const Color(0xfff96060), 'Meeting with someone',
+                        '9:00 AM'),
+                    taskWidget(Colors.blue, 'Meeting with someone', '9:00 AM'),
+                    taskWidget(Colors.green, 'Take your medicine', '9:00 AM'),
+                  ],
+                )),
+              )
             ],
           )
         ],
@@ -118,4 +163,79 @@ class _homePageState extends State<homePage> {
     filterType = filter;
     setState(() {});
   }
+
+  Slidable taskWidget(Color color, String title, String time) {
+    return Slidable(
+        endActionPane: ActionPane(
+          motion: const DrawerMotion(),
+          children: [
+            SlidableAction(
+              flex: 2,
+              onPressed: doNothing,
+              backgroundColor: color,
+              foregroundColor: Colors.black,
+              icon: Icons.edit,
+              label: 'Edit',
+            ),
+            SlidableAction(
+              onPressed: doNothing,
+              backgroundColor: color,
+              foregroundColor: Colors.black,
+              icon: Icons.delete,
+              label: 'Delete',
+            ),
+          ],
+        ),
+        child: Container(
+          height: 80,
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(color: Colors.white, boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.03),
+                offset: const Offset(0, 9),
+                blurRadius: 20,
+                spreadRadius: 1)
+          ]),
+          child: Row(
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                height: 25,
+                width: 25,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: color, width: 4)),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    time,
+                    style: const TextStyle(fontSize: 18, color: Colors.grey),
+                  )
+                ],
+              ),
+              Expanded(
+                child: Container(),
+              ),
+              Container(
+                height: 50,
+                width: 5,
+                color: color,
+              )
+            ],
+          ),
+        ));
+  }
+
+  void doNothing(BuildContext context) {}
 }
