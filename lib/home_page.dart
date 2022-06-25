@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:todo_app/new_checklist.dart';
+import 'package:todo_app/new_note.dart';
+import 'package:todo_app/new_task.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,6 +26,7 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> {
   String filterType = 'today';
+  String taskPop = 'close';
   DateTime today = DateTime.now();
   var monthNames = [
     'JAN',
@@ -247,7 +251,7 @@ class _homePageState extends State<homePage> {
                           left: 0,
                           right: 0,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: openTaskPop,
                             child: Container(
                               height: 80,
                               width: 80,
@@ -267,10 +271,118 @@ class _homePageState extends State<homePage> {
                     ],
                   ))
             ],
-          )
+          ),
+          Container(
+              child: (taskPop == 'open')
+                  ? Container(
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.black.withOpacity(0.3),
+                      child: Center(
+                        child: InkWell(
+                            onTap: closeTaskPop,
+                            child: Container(
+                                decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    color: Colors.white),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                width: MediaQuery.of(context).size.width * 0.7,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    const SizedBox(
+                                      height: 1,
+                                    ),
+                                    InkWell(
+                                      onTap: openNewTask,
+                                      child: Container(
+                                        child: const Text(
+                                          'Add Task',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 1,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 30),
+                                      color: Colors.black.withOpacity(0.2),
+                                    ),
+                                    const SizedBox(
+                                      height: 1,
+                                    ),
+                                    InkWell(
+                                      onTap: openNewNote,
+                                      child: Container(
+                                        child: const Text(
+                                          'Add Quick Note',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 1,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 30),
+                                      color: Colors.black.withOpacity(0.2),
+                                    ),
+                                    const SizedBox(
+                                      height: 1,
+                                    ),
+                                    InkWell(
+                                      onTap: openNewChecklist,
+                                      child: Container(
+                                        child: const Text(
+                                          'Add Checklist',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 1,
+                                    )
+                                  ],
+                                ))),
+                      ),
+                    )
+                  : Container())
         ],
       ),
     );
+  }
+
+  openNewTask() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const NewTask()));
+  }
+
+  openNewNote() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const NewNote()));
+  }
+
+  openNewChecklist() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const NewChecklist()));
+  }
+
+  openTaskPop() {
+    taskPop = 'open';
+    setState(() {});
+  }
+
+  closeTaskPop() {
+    taskPop = 'close';
+    setState(() {});
   }
 
   changeFilter(String filter) {
