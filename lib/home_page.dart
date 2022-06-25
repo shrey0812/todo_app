@@ -151,7 +151,121 @@ class _homePageState extends State<homePage> {
                     taskWidget(Colors.green, 'Take your medicine', '9:00 AM'),
                   ],
                 )),
-              )
+              ),
+              Container(
+                  height: 110,
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                            height: 90,
+                            width: MediaQuery.of(context).size.width,
+                            color: const Color(0xff292e4e),
+                            padding: const EdgeInsets.all(20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Container(
+                                  child: Column(
+                                    children: const [
+                                      Icon(
+                                        Icons.check_circle,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        'My Task',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  child: Column(
+                                    children: const [
+                                      Icon(
+                                        Icons.menu,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        'Menu',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Container(width: 80),
+                                Container(
+                                  child: Column(
+                                    children: const [
+                                      Icon(
+                                        Icons.content_paste,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        'Quick',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  child: Column(
+                                    children: const [
+                                      Icon(
+                                        Icons.account_circle,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        'Profile',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )),
+                      ),
+                      Positioned(
+                          bottom: 25,
+                          left: 0,
+                          right: 0,
+                          child: InkWell(
+                            onTap: () {},
+                            child: Container(
+                              height: 80,
+                              width: 80,
+                              decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                      colors: [Color(0xfff96060), Colors.red]),
+                                  shape: BoxShape.circle),
+                              child: const Center(
+                                child: Text(
+                                  '+',
+                                  style: TextStyle(
+                                      fontSize: 40, color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ))
+                    ],
+                  ))
             ],
           )
         ],
