@@ -51,22 +51,20 @@ class _homePageState extends State<homePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppBar(
-                backgroundColor: const Color(0xfff96060),
-                elevation: 0,
-                title: const Text(
-                  'Work List',
-                  style: TextStyle(fontSize: 30),
-                ),
-                actions: [
-                  IconButton(
+                  backgroundColor: const Color(0xfff96060),
+                  elevation: 0,
+                  centerTitle: true,
+                  title: const Text(
+                    'Work List',
+                    style: TextStyle(fontSize: 30),
+                  ),
+                  leading: IconButton(
                       onPressed: () {},
                       icon: const Icon(
                         Icons.short_text,
                         color: Colors.white,
                         size: 30,
-                      ))
-                ],
-              ),
+                      ))),
               Container(
                 height: 70,
                 color: const Color(0xfff96060),

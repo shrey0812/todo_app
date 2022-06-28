@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/home_page.dart';
+import 'package:todo_app/on_boarding.dart';
 import 'forgot_password.dart';
 
 class LoginPage extends StatelessWidget {
@@ -31,7 +33,10 @@ class _loginPageState extends State<loginPage> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             color: Colors.black,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const onboarding()));
+            },
           ),
         ),
         body: Container(
@@ -100,9 +105,13 @@ class _loginPageState extends State<loginPage> {
                 decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(7)),
                     color: Color(0xfff96060)),
-                child: const Text(
-                  'Log In',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                child: InkWell(
+                  child: const Text('Log In',
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
+                  },
                 ),
               )))
             ],

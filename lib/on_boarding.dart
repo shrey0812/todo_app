@@ -89,11 +89,6 @@ class _onboardingState extends State<onboarding> {
                   const SizedBox(
                     height: 30,
                   ),
-                  const Text('Login',
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold))
                 ],
               ),
             ),
